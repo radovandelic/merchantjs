@@ -11,7 +11,7 @@ var model = {
         return +price.toFixed(2);
     },
     getPrice: function (commodity) {
-        return this.prices[commodity];
+        return +this.prices[commodity].toFixed(2);
     },
     getAll: function () {
         return prices;
@@ -22,3 +22,9 @@ var model = {
 }
 
 module.exports = model;
+
+for (var i = 0; i < 10; i++) {
+    console.log(i + 1 + ".11.2017.");
+    console.log("  Metal price: " + model.getNewPrice("metal"));
+    console.log("  Wood price: " + model.getNewPrice("wood"));
+}
