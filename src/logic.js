@@ -20,3 +20,5 @@ var logic = {
         this.prices[commodity] = price;
     }
 }
+
+module.exports = logic;
