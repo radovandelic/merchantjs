@@ -1,40 +1,39 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 
-export class Materials extends React.Componet{
-render(){
-return (
-	<div>
-          <select id="materials" onChange={this.handleChange}>
-          <option value="wood">
-            Wood
+export class Materials extends Component {
+    render() {
+        return (
+            <div>
+                <select id="materials" onChange={this.handleChange}>
+                    <option value="wood">
+                        Wood
           </option>
 
-          <option value="stone">
-            Stone
+                    <option value="stone">
+                        Stone
           </option>
 
-          <option value="metal">
-            Metal
+                    <option value="metal">
+                        Metal
           </option>
-        </select>
-         
-      </div>
-    );
-}
-}
+                </select>
 
-
-
-export class Button extends React.Componet{
-render(){
-    return <button> </button>
+            </div>
+        );
     }
 }
 
 
-export class Quantity extends React.Componet{
-    render(){
-             return <input type="number" />
-    } 
+
+export class Button extends Component {
+    render() {
+        return (<button> Buy </button>);
+    }
+}
+
+
+export class Quantity extends Component {
+    render() {
+        return (<input type="number" />);
+    }
 }
