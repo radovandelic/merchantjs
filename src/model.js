@@ -1,4 +1,4 @@
-var logic = {
+var model = {
     prices: {
         wood: 2.0,
         stone: 1.0,
@@ -21,4 +21,4 @@ var logic = {
     }
 }
 
-module.exports = logic;
+module.exports = model;
