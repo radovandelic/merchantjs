@@ -5,10 +5,10 @@ var model = {
         metal: 5.0
     },
     getNewPrice: function (commodity) {
-        price = this.prices[commodity];
-        price = price + (Math.random() * price / 4 - Math.random() * price / 4)
-        this.prices[commodity] = price;
-        return +price.toFixed(2);
+        var price = this.prices[commodity];
+        price = price + (Math.random() * price / 4 - Math.random() * price / 4) //randomizes new price to +/- 25% of old price
+        this.prices[commodity] = price; //sets the new price in the model
+        return +price.toFixed(2); //rounds to 2 decimals
     },
     getPrice: function (commodity) {
         return +this.prices[commodity].toFixed(2);
@@ -23,8 +23,8 @@ var model = {
 
 module.exports = model;
 
-for (var i = 0; i < 10; i++) {
+/*for (var i = 0; i < 10; i++) {
     console.log(i + 1 + ".11.2017.");
     console.log("  Metal price: " + model.getNewPrice("metal"));
     console.log("  Wood price: " + model.getNewPrice("wood"));
-}
+}*/

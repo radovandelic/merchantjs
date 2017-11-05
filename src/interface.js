@@ -7,22 +7,20 @@ export class Materials extends Component {
                 <select id="materials" onChange={this.handleChange}>
                     <option value="wood">
                         Wood
-          </option>
+                    </option>
 
                     <option value="stone">
                         Stone
-          </option>
+                    </option>
 
                     <option value="metal">
                         Metal
-          </option>
+                    </option>
                 </select>
-
             </div>
         );
     }
 }
-
 
 
 export class Button extends Component {
