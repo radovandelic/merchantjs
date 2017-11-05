@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import { Button, Quantity, Materials, Handler } from './interface';
 import './App.css';
-import { model } from './model';
+var model = require('./model');
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { material: 'wood' };
+    this.state = { material: 'wood', price: model.getPrice('wood') };
 
     this.changeMaterial = this.changeMaterial.bind(this);
   }
 
   changeMaterial(newMaterial) {
     this.setState({
-      material: newMaterial
+      material: newMaterial,
+      price: model.getPrice(newMaterial)
     });
   }
   render() {
@@ -31,8 +32,7 @@ class App extends Component {
         </p>
         <br />
         <li>
-          {' '}
-          Price of {this.state.material} is <Handler />{' '}
+          Price of {this.state.material} is {this.state.price}
         </li>
       </div>
     );
