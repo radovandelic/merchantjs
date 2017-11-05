@@ -22,7 +22,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Medival Villge</h1>
+          <h1 className="App-title">Medieval Village</h1>
         </header>
         <p className="App-intro">
           To get started, choose what material to buy
