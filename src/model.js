@@ -1,4 +1,4 @@
-model = {
+var model = {
     prices: {
         wood: 2.0,
         stone: 1.0,
