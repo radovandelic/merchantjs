@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Quantity, Materials, Handler } from './interface';
+import { Button, Quantity, Materials } from './interface';
 import './App.css';
 import { model } from './model';
 
@@ -30,10 +30,6 @@ class App extends Component {
           <Button />
         </p>
         <br />
-        <li>
-          {' '}
-          Price of {this.state.material} is <Handler />{' '}
-        </li>
       </div>
     );
   }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { model } from './model';
+var model = require('./model');
 
 export class Materials extends Component {
   constructor(props) {
     super(props);
-    
+    this.commodityCalc = this.commodityCalc.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -12,6 +12,12 @@ export class Materials extends Component {
     const material = e.target.value;
     this.props.onChange(material);
   }
+
+ commodityCalc(e){
+    const material = e.target.value;
+    model.getPrice(material);
+  }
+
 
     render() {
         return (
@@ -29,6 +35,10 @@ export class Materials extends Component {
                         Metal
           </option>
                 </select>
+         <li>
+         {this.commodityCalc}
+          
+        </li>
 
             </div>
         );
@@ -50,15 +60,16 @@ export class Quantity extends Component {
     }
 }
 
-export class Handler extends Component {
+/*export class Handler extends Component {
     constructor(props) {
         super(props);
         this.commodityCalc = this.commodityCalc.bind(this);
     }
-    commodityCalc(props){
-        let commodity = this.props.material;
-        console.log(commodity)
-      return console.log(model.getPrice(commodity))
+    commodityCalc(e){
+        let value = e.target.value
+        console.log(this.props.onChange)
+
+      return console.log(model.getPrice(value))
         
         
     }
@@ -67,3 +78,4 @@ export class Handler extends Component {
         return (<div> {this.commodityCalc} </div>)
     }
 } 
+*/
