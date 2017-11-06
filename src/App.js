@@ -48,10 +48,16 @@ class App extends Component {
           <button onClick={this.getAll}>Toggle Prices </button>
         </div>
         <br />
-        <p>
-          Price of {this.state.material} is $ {this.state.price}
-        </p>
-        <div>{this.state.clicked ? <li>{priceString} </li> : null} </div>
+
+        <div>
+          {this.state.clicked ? (
+            <li>{priceString} </li>
+          ) : (
+            <p>
+              Price of {this.state.material} is $ {this.state.price}
+            </p>
+          )}{' '}
+        </div>
       </div>
     );
   }
