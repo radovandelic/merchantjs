@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { model } from './model';
+var model = require('./model');
 
 export class Materials extends Component {
     constructor(props) {
@@ -12,6 +12,12 @@ export class Materials extends Component {
         const material = e.target.value;
         this.props.onChange(material);
     }
+
+ commodityCalc(e){
+    const material = e.target.value;
+    model.getPrice(material);
+  }
+
 
     render() {
         return (
@@ -49,7 +55,7 @@ export class Quantity extends Component {
     }
 }
 
-export class Handler extends Component {
+/*export class Handler extends Component {
     constructor(props) {
         super(props);
         this.commodityCalc = this.commodityCalc.bind(this);
@@ -66,3 +72,4 @@ export class Handler extends Component {
         return (<div> {this.commodityCalc} </div>)
     }
 } 
+*/
