@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 var model = require('./model');
 
 export class Materials extends Component {
-  constructor(props) {
-    super(props);
-    this.commodityCalc = this.commodityCalc.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
+    constructor(props) {
+        super(props);
 
-  handleChange(e) {
-    const material = e.target.value;
-    this.props.onChange(material);
-  }
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(e) {
+        const material = e.target.value;
+        this.props.onChange(material);
+    }
 
  commodityCalc(e){
     const material = e.target.value;
@@ -25,26 +25,21 @@ export class Materials extends Component {
                 <select id="materials" onChange={this.handleChange}>
                     <option value="wood">
                         Wood
-          </option>
+                    </option>
 
                     <option value="stone">
                         Stone
-          </option>
+                    </option>
 
                     <option value="metal">
                         Metal
-          </option>
-                </select>
-         <li>
-         {this.commodityCalc}
-          
-        </li>
 
+                    </option>
+                </select>
             </div>
         );
     }
 }
-
 
 
 export class Button extends Component {
@@ -65,16 +60,15 @@ export class Quantity extends Component {
         super(props);
         this.commodityCalc = this.commodityCalc.bind(this);
     }
-    commodityCalc(e){
-        let value = e.target.value
-        console.log(this.props.onChange)
+    commodityCalc(props) {
+        let commodity = this.props.material;
+        console.log(commodity)
+        return console.log(model.getPrice(commodity))
 
-      return console.log(model.getPrice(value))
-        
-        
+
     }
     render() {
-    
+
         return (<div> {this.commodityCalc} </div>)
     }
 } 
