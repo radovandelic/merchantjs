@@ -9,18 +9,31 @@ class App extends Component {
 
     this.state = {
       material: 'wood',
-      price: model.getPrice('wood'),
+      price: 2,
       clicked: false,
       prices: {}
     };
     this.getAll = this.getAll.bind(this);
     this.changeMaterial = this.changeMaterial.bind(this);
+    this.ajaxGet = this.ajaxGet.bind(this);
   }
-
+  ajaxGet(what, material, callback) {
+    var url = `http://localhost:3001/${what}/${material}`
+    fetch(url).then(function (response) {
+      return response.json()
+    }).then(function (json) {
+      console.log('parsed json', json)
+      callback(json);
+    }).catch(function (ex) {
+      console.log('parsing failed', ex)
+    })
+  }
   changeMaterial(newMaterial) {
-    this.setState({
-      material: newMaterial,
-      price: model.getPrice(newMaterial)
+    this.ajaxGet("price", newMaterial, newPrice => {
+      this.setState({
+        material: newMaterial,
+        price: newPrice
+      });
     });
   }
   getAll() {
@@ -53,10 +66,10 @@ class App extends Component {
           {this.state.clicked ? (
             <li>{priceString} </li>
           ) : (
-            <p>
-              Price of {this.state.material} is $ {this.state.price}
-            </p>
-          )}{' '}
+              <p>
+                Price of {this.state.material} is $ {this.state.price}
+              </p>
+            )}{' '}
         </div>
       </div>
     );
