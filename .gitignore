@@ -9,6 +9,8 @@
 # production
 /build
 
+/components/config/keys.js
+
 # misc
 .DS_Store
 .env.local

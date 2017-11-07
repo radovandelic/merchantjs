@@ -5,6 +5,7 @@ app.use(compress());
 
 var model = require("./src/model")
 
+//var interval = setin
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -18,8 +19,8 @@ app.set('port', port);
 app.use(express.static("build"));
 
 app.get("/price/:material", (req, res) => {
-    console.log(model.prices[req.params.material]);
-    res.json(model.prices[req.params.material]);
+    console.log(model.getPrice([req.params.material]));
+    res.json(model.getPrice([req.params.material]));
 })
 
 // set up error middleware

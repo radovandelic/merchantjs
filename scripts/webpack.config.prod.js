@@ -64,7 +64,7 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the polyfills and the app code.
-  entry: [require.resolve('react-scripts/config/polyfills'), paths.appIndexJs],
+  entry: ['whatwg-fetch', require.resolve('react-scripts/config/polyfills'), paths.appIndexJs],
   output: {
     libraryTarget: 'umd',
     // The build folder.

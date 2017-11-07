@@ -41,6 +41,7 @@ module.exports = {
   // This means they will be the "root" imports that are included in JS bundle.
   // The first two entry points enable "hot" CSS and auto-refreshes for JS.
   entry: [
+    'whatwg-fetch',
     // We ship a few polyfills by default:
     require.resolve('react-scripts/config/polyfills'),
     // Include an alternative client for WebpackDevServer. A client's job is to
