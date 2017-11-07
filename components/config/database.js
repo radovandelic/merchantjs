@@ -5,7 +5,7 @@ var keys = process.env.dbusername ? {
 } : require("./keys");
 
 module.exports = {
-    database: `mongodb://${keys.username}:${keys.password}@ds251435.mlab.com:51435/merchantjs`,
+    database: `mongodb://${keys.dbusername}:${keys.dbpassword}@ds251435.mlab.com:51435/merchantjs`,
     startDB: function () {
         //to get rid of annoying promise/deprecated warnings
         mongoose.Promise = global.Promise;

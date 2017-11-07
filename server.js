@@ -1,9 +1,8 @@
 var express = require("express");
 var app = express();
+var routes = require("./components/routes/routes");
 var compress = require('compression');
 app.use(compress());
-
-var model = require("./src/model")
 
 //var interval = setin
 app.use(function (req, res, next) {
@@ -18,11 +17,7 @@ app.set('port', port);
 // set up a static server
 app.use(express.static("build"));
 
-app.get("/price/:material", (req, res) => {
-    console.log(model.getPrice([req.params.material]));
-    res.json(model.getPrice([req.params.material]));
-})
-
+app.use("/", routes);
 // set up error middleware
 app.use(function (req, res) {
     res.statusCode = 404;
