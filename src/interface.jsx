@@ -1,59 +1,63 @@
 import React, { Component } from 'react';
-var model = require('./model');
 
 export class Materials extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(e) {
-        const material = e.target.value;
-        this.props.onChange(material);
-    }
-
- commodityCalc(e){
-    const material = e.target.value;
-    model.getPrice(material);
+    this.handleChange = this.handleChange.bind(this);
   }
 
+  handleChange(e) {
+    const material = e.target.value;
+    this.props.onChange(material);
+  }
 
-    render() {
-        return (
-            <div>
-                <select id="materials" onChange={this.handleChange}>
-                    <option value="wood">
-                        Wood
-                    </option>
+  //   commodityCalc(e) {
+  //     const material = e.target.value;
+  //     model.getPrice(material);
+  //   }
 
-                    <option value="stone">
-                        Stone
-                    </option>
+  render() {
+    return (
+      <div>
+        <select id="materials" onChange={this.handleChange}>
+          <option value="wood">Wood</option>
 
-                    <option value="metal">
-                        Metal
+          <option value="stone">Stone</option>
 
-                    </option>
-                </select>
-            </div>
-        );
-    }
+          <option value="metal">Metal</option>
+        </select>
+      </div>
+    );
+  }
 }
-
 
 export class Button extends Component {
-    render() {
-        return (<button> Buy </button>);
-    }
+  render() {
+    return <button> Buy </button>;
+  }
 }
 
+// export class Quantity extends Component {
+//   render() {
+//     return <input type="number" />;
+//   }
+// }
 
-export class Quantity extends Component {
-    render() {
-        return (<input type="number" />);
-    }
-}
+// export class Iventory extends Component {}
+
+// export class AllItems extends Component {
+//   render() {
+//     return (
+//       <div class="row right-align">
+//         <li>
+//           material:&nbsp {this.props.market}
+//           material:&nbsp {this.props}
+//         </li>;
+//       </div>
+//     );
+//   }
+// }
 
 /*export class Handler extends Component {
     constructor(props) {
