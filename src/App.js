@@ -8,12 +8,12 @@ class App extends Component {
 
     this.state = {
       currentTown: 'icekeep',
-      market: [{ material: 'wood', price: 0 }],
+      market: [],
       clicked: false,
       username: 'user',
       inventory: [],
       money: 100,
-      currentMaterial: 'wood'
+      currentCommodity: {}
     };
     this.buy = this.buy.bind(this);
     this.sell = this.sell.bind(this);
@@ -35,31 +35,27 @@ class App extends Component {
     console.log(this.state.market);
     for (var i = 0; i < this.state.market.length; i++) {
       const material = this.state.market[i];
-      console.log(material);
       material.price = this.setNewPrice(material.price);
-      console.log(material.price);
       newPrices.push(material);
     }
     this.setState({
       market: newPrices
     });
-    console.log(newPrices);
-    console.log(this.state.market);
   }
   buy() {
     var inventory = this.state.inventory;
-    var index = inventory.findIndex(c => { return c.material == this.state.currentMaterial });
+    var index = inventory.findIndex(c => { return c.material === this.state.currentCommodity.material });
+
     if (index == -1) { // if item not already in inventory
-      var commodity = this.state.market.find(c => {
-        return c.material === this.state.currentMaterial;
-      })
+      var commodity = this.state.currentCommodity;
       var price = commodity.price;
       commodity.quantity = 1;
       inventory.push(commodity);
     } else { // if item already in inventory
+      var price = this.state.currentCommodity.price;
       inventory[index].quantity++;
-      var price = inventory[index].price;
     }
+
     var money = this.state.money - price;
     if (money >= 0) {
       this.setState({
@@ -70,11 +66,11 @@ class App extends Component {
   }
   sell() {
     var inventory = this.state.inventory;
-    var index = inventory.findIndex(c => { return c.material == this.state.currentMaterial });
+    var index = inventory.findIndex(c => { return c.material == this.state.currentCommodity.material });
     if (index != -1 && inventory[index].quantity > 0) {
-      inventory[index].quantity--;
-      var price = inventory[index].price;
+      var price = this.state.currentCommodity.price
       var money = this.state.money + price;
+      inventory[index].quantity--;
       this.setState({
         inventory: inventory,
         money: money
@@ -96,15 +92,13 @@ class App extends Component {
       });
   }
   changeMaterial(newMaterial) {
+    var currentCommodity = this.state.market.find(c => { return c.material === newMaterial })
     this.setState({
-      currentMaterial: newMaterial
+      currentCommodity: currentCommodity
     });
-    setTimeout(() => {
-      console.log(this.state.currentMaterial);
-    }, 100);
   }
   getAll() {
-    this.ajaxGet('icekeep', data => {
+    this.ajaxGet(this.state.currentTown, data => {
       if (data) {
         console.log(data);
         console.log(data.name);
@@ -113,7 +107,7 @@ class App extends Component {
         console.log(data.market[0].material);
         console.log(data.market[0].price);
         //console.log(data.market.length);
-        this.setState({ currentTown: 'icekeep', market: data.market });
+        this.setState({ currentTown: 'icekeep', market: data.market, currentCommodity: data.market[0] });
         console.log(this.state.market);
         console.log(this.state.market.length);
         // return allPrices();
@@ -138,7 +132,11 @@ class App extends Component {
             Money: {this.state.money.toFixed(2)}
             <br />
             Inventory:
-            {this.state.inventory.map(inventoryItem => <li> {inventoryItem.material} qty: {inventoryItem.quantity} </li>)}
+            <ul>
+              {this.state.inventory.map(inventoryItem =>
+                <li> {inventoryItem.material} qty: {inventoryItem.quantity} </li>
+              )}
+            </ul>
           </div>
           {/* This container is to buy goods */}
           <div className="App-intro col-sm-6">
@@ -151,7 +149,7 @@ class App extends Component {
           <div className="col-sm-3 card">
             <div>
               <Towns onChange={this.changeMaterial} />
-              <button onClick={this.getAll}> see all </button>
+              {/* <button onClick={this.getAll}> see all </button> */}
               <button onClick={this.nextDay}> Next Day </button>{' '}
               {this.state.market.map(item => (
                 <li>
