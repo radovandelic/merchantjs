@@ -1,14 +1,23 @@
 var schema = {
-    name: {
+    username: { //username
         type: String,
-        required: true
+        required: false
     },
-    market: [{
+    money: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    inventory: [{
         material: {
             type: String,
             required: true
         },
         price: {
+            type: Number,
+            required: true
+        },
+        quantity: {
             type: Number,
             required: true
         }

@@ -1,6 +1,7 @@
 var express = require("express");
 var app = express();
-var routes = require("./components/routes/routes");
+var townRoutes = require("./components/routes/towns");
+var userRoutes = require("./components/routes/users");
 var compress = require('compression');
 app.use(compress());
 
@@ -17,7 +18,8 @@ app.set('port', port);
 // set up a static server
 app.use(express.static("build"));
 
-app.use("/", routes);
+app.use("/user/", userRoutes);
+app.use("/", townRoutes);
 // set up error middleware
 app.use(function (req, res) {
     res.statusCode = 404;

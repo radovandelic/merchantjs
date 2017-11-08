@@ -9,6 +9,7 @@
 # production
 /build
 
+# config
 /components/config/keys.js
 
 # misc

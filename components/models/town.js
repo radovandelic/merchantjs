@@ -1,26 +1,32 @@
 var db = require("../config/database")
 var mongoose = require("mongoose");
-var schema = require("./schema");
+var schema = require("./townSchema");
 
 db.startDB();
 var Town = mongoose.model("Town", schema);
+/*Town.setNewPrice = function (commodity) {
+    var price = this.(commodity)
+    price = price + (Math.random() * price - Math.random() * price) / 10;
+    this.setPrice(commodity, price);
+}*/
 module.exports = Town;
+
 
 /*var wood = {
     material: "wood",
-    price: 3.0
+    price: 1.0
 }
 var stone = {
     material: "stone",
-    price: 0.5
+    price: 1.0
 }
 var steel = {
     material: "steel",
-    price: 2.0
+    price: 15.0
 }
 
 var t = {
-    name: "Boulderspire",
+    name: "swampshire",
     market: [wood, stone, steel]
 }
 Town.create(t).then(town => {

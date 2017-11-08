@@ -11,9 +11,9 @@ class App extends Component {
       market: [{ material: 'wood', price: 0 }],
       clicked: false,
       username: 'user',
-      inventory: ['wood'],
-      money: 400,
-      material: 'wood'
+      inventory: [],
+      money: 100,
+      currentMaterial: 'wood'
     };
     this.buy = this.buy.bind(this);
     this.sell = this.sell.bind(this);
@@ -22,6 +22,9 @@ class App extends Component {
     this.getAll = this.getAll.bind(this);
     this.changeMaterial = this.changeMaterial.bind(this);
     this.ajaxGet = this.ajaxGet.bind(this);
+  }
+  componentDidMount() {
+    this.getAll();
   }
   setNewPrice(price) {
     price = price + (Math.random() * price - Math.random() * price) / 10;
@@ -43,10 +46,28 @@ class App extends Component {
     console.log(newPrices);
     console.log(this.state.market);
   }
-  buy(commodity) {
-    // var debit = money-market[commodity].price
-    //inventory.push(commodity)
-    // this.setState({money: debit})
+  buy() {
+    var inventory = this.state.inventory;
+    var index = inventory.findIndex(c => { return c.material == this.state.currentMaterial });
+    if (index == -1) {
+      var commodity = this.state.market.find(c => {
+        return c.material === this.state.currentMaterial;
+      })
+      var price = commodity.price;
+      commodity.quantity = 1;
+      inventory.push(commodity);
+    } else {
+      inventory[index].quantity++;
+      var price = inventory[index].price;
+    }
+    setTimeout(() => {
+      var money = this.state.money - price;
+      this.setState({
+        inventory: inventory,
+        money: money
+      })
+
+    }, 100);
   }
   sell() {
     //var credit = money+market[commodity].price
@@ -54,24 +75,24 @@ class App extends Component {
   ajaxGet(town, callback) {
     var url = `http://localhost:3001/${town}/prices`;
     fetch(url)
-      .then(function(response) {
+      .then(function (response) {
         return response.json();
       })
-      .then(function(json) {
+      .then(function (json) {
         console.log('parsed json', json);
         callback(json);
       })
-      .catch(function(ex) {
+      .catch(function (ex) {
         console.log('parsing failed', ex);
       });
   }
   changeMaterial(newMaterial) {
     this.setState({
-      material: newMaterial
+      currentMaterial: newMaterial
     });
     setTimeout(() => {
-      console.log(this.state.material);
-    }, 200);
+      console.log(this.state.currentMaterial);
+    }, 100);
   }
   getAll() {
     this.ajaxGet('icekeep', data => {
@@ -92,7 +113,7 @@ class App extends Component {
       }
     });
   }
-  getInventory() {}
+  getInventory() { }
 
   render() {
     return (
@@ -108,7 +129,7 @@ class App extends Component {
             Money: {this.state.money}
             <br />
             Inventory:
-            {this.state.inventory.map((inventory, i) => <li> {inventory} </li>)}
+            {this.state.inventory.map(inventoryItem => <li> {inventoryItem.material} qty: {inventoryItem.quantity} </li>)}
           </div>
           {/* This container is to buy goods */}
           <div className="App-intro col-sm-6">

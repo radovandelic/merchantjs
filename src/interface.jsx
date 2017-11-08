@@ -25,7 +25,7 @@ export class Materials extends Component {
 
           <option value="stone">Stone</option>
 
-          <option value="metal">Metal</option>
+          <option value="steel">Steel</option>
         </select>
       </div>
     );
@@ -34,9 +34,9 @@ export class Materials extends Component {
 
 export class Button extends Component {
   render() {
-  return (
-  <button> Buy </button>
- );
+    return (
+      <button> Buy </button>
+    );
   }
 }
 
