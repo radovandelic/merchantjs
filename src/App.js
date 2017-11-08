@@ -71,7 +71,7 @@ class App extends Component {
   sell() {
     var inventory = this.state.inventory;
     var index = inventory.findIndex(c => { return c.material == this.state.currentMaterial });
-    if (index != -1 && inventory[index].quantity > 0) { // if item not already in inventor
+    if (index != -1 && inventory[index].quantity > 0) {
       inventory[index].quantity--;
       var price = inventory[index].price;
       var money = this.state.money + price;
