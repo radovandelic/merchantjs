@@ -135,7 +135,7 @@ class App extends Component {
           <div className="col-sm-3 card">
             Username: user
             <br />
-            Money: {this.state.money}
+            Money: {this.state.money.toFixed(2)}
             <br />
             Inventory:
             {this.state.inventory.map(inventoryItem => <li> {inventoryItem.material} qty: {inventoryItem.quantity} </li>)}
