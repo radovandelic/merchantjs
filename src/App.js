@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Materials } from './interface';
+import { Button, Materials, Towns } from './interface';
 import './App.css';
 
 class App extends Component {
@@ -8,12 +8,48 @@ class App extends Component {
 
     this.state = {
       currentTown: 'icekeep',
-      market: [{ price: 0 }],
-      clicked: false
+      market: [{ material: 'wood', price: 0 }],
+      clicked: false,
+      username: 'user',
+      inventory: ['wood'],
+      money: 400,
+      material: 'wood'
     };
+    this.buy = this.buy.bind(this);
+    this.sell = this.sell.bind(this);
+    this.nextDay = this.nextDay.bind(this);
+    this.setNewPrice = this.setNewPrice.bind(this);
     this.getAll = this.getAll.bind(this);
     this.changeMaterial = this.changeMaterial.bind(this);
     this.ajaxGet = this.ajaxGet.bind(this);
+  }
+  setNewPrice(price) {
+    price = price + (Math.random() * price - Math.random() * price) / 10;
+    return price;
+  }
+  nextDay() {
+    var newPrices = [];
+    console.log(this.state.market);
+    for (var i = 0; i < this.state.market.length; i++) {
+      const material = this.state.market[i];
+      console.log(material);
+      material.price = this.setNewPrice(material.price);
+      console.log(material.price);
+      newPrices.push(material);
+    }
+    this.setState({
+      market: newPrices
+    });
+    console.log(newPrices);
+    console.log(this.state.market);
+  }
+  buy(commodity) {
+    // var debit = money-market[commodity].price
+    //inventory.push(commodity)
+    // this.setState({money: debit})
+  }
+  sell() {
+    //var credit = money+market[commodity].price
   }
   ajaxGet(town, callback) {
     var url = `http://localhost:3001/${town}/prices`;
@@ -30,12 +66,12 @@ class App extends Component {
       });
   }
   changeMaterial(newMaterial) {
-    this.ajaxGet('price', newMaterial, newPrice => {
-      this.setState({
-        material: newMaterial,
-        price: newPrice
-      });
+    this.setState({
+      material: newMaterial
     });
+    setTimeout(() => {
+      console.log(this.state.material);
+    }, 200);
   }
   getAll() {
     this.ajaxGet('icekeep', data => {
@@ -56,6 +92,7 @@ class App extends Component {
       }
     });
   }
+  getInventory() {}
 
   render() {
     return (
@@ -65,21 +102,30 @@ class App extends Component {
         </header>
         <div className="row">
           {/* This container holds the user information  */}
-          <div className="col-sm-3 card">This is a card</div>
+          <div className="col-sm-3 card">
+            Username: user
+            <br />
+            Money: {this.state.money}
+            <br />
+            Inventory:
+            {this.state.inventory.map((inventory, i) => <li> {inventory} </li>)}
+          </div>
           {/* This container is to buy goods */}
           <div className="App-intro col-sm-6">
             To get started, choose what material to buy
             <Materials onChange={this.changeMaterial} />
-            <Button />
+            <button onClick={this.buy}> Buy </button>
+            <button onClick={this.sell}> Sell </button>
           </div>
           {/* This container shows all items in a given location */}
           <div className="col-sm-3 card">
             <div>
-              {' '}
-              <button onClick={this.getAll}> see all </button>{' '}
-              {this.state.market.map((market, i) => (
+              <Towns onChange={this.changeMaterial} />
+              <button onClick={this.getAll}> see all </button>
+              <button onClick={this.nextDay}> Next Day </button>{' '}
+              {this.state.market.map(item => (
                 <li>
-                  {this.state.market[i].material} {this.state.market[i].price}{' '}
+                  {item.material} {item.price.toFixed(2)}{' '}
                 </li>
               ))}
             </div>

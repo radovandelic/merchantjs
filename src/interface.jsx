@@ -38,6 +38,33 @@ export class Button extends Component {
   }
 }
 
+export class Towns extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    const town = e.target.value;
+    this.props.onChange(town);
+  }
+  render() {
+    return (
+      <div>
+        <select id="materials" onChange={this.handleChange}>
+          <option value="bayhollow">Bayhollow</option>
+          <option value="boulderspire">Boulderspire</option>
+          <option value="grimshield"> Grimshield</option>
+          <option value="icekeep">Icekeep</option>
+          <option value="quickwater">Quickwater</option>
+          <option value="thorngarde">Thorngarde</option>
+        </select>
+      </div>
+    );
+  }
+}
+
 // export class Quantity extends Component {
 //   render() {
 //     return <input type="number" />;
