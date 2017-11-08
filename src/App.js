@@ -49,28 +49,37 @@ class App extends Component {
   buy() {
     var inventory = this.state.inventory;
     var index = inventory.findIndex(c => { return c.material == this.state.currentMaterial });
-    if (index == -1) {
+    if (index == -1) { // if item not already in inventory
       var commodity = this.state.market.find(c => {
         return c.material === this.state.currentMaterial;
       })
       var price = commodity.price;
       commodity.quantity = 1;
       inventory.push(commodity);
-    } else {
+    } else { // if item already in inventory
       inventory[index].quantity++;
       var price = inventory[index].price;
     }
-    setTimeout(() => {
-      var money = this.state.money - price;
+    var money = this.state.money - price;
+    if (money >= 0) {
       this.setState({
         inventory: inventory,
         money: money
       })
-
-    }, 100);
+    }
   }
   sell() {
-    //var credit = money+market[commodity].price
+    var inventory = this.state.inventory;
+    var index = inventory.findIndex(c => { return c.material == this.state.currentMaterial });
+    if (index != -1 && inventory[index].quantity > 0) { // if item not already in inventor
+      inventory[index].quantity--;
+      var price = inventory[index].price;
+      var money = this.state.money + price;
+      this.setState({
+        inventory: inventory,
+        money: money
+      })
+    }
   }
   ajaxGet(town, callback) {
     var url = `http://localhost:3001/${town}/prices`;
