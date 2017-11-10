@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Materials, Towns } from './interface';
+import { Towns, Inventory, Main, Market, Header } from './interface';
 import './App.css';
 
 class App extends Component {
@@ -32,7 +32,6 @@ class App extends Component {
   }
   nextDay() {
     var newPrices = [];
-    console.log(this.state.market);
     for (var i = 0; i < this.state.market.length; i++) {
       const material = this.state.market[i];
       material.price = this.setNewPrice(material.price);
@@ -84,7 +83,6 @@ class App extends Component {
         return response.json();
       })
       .then(function (json) {
-        console.log('parsed json', json);
         callback(json);
       })
       .catch(function (ex) {
@@ -100,64 +98,29 @@ class App extends Component {
   getAll() {
     this.ajaxGet(this.state.currentTown, data => {
       if (data) {
-        console.log(data);
-        console.log(data.name);
-        // to take a arg use data.[name]
-        //console.log(data.market[0]);
-        console.log(data.market[0].material);
-        console.log(data.market[0].price);
-        //console.log(data.market.length);
-        this.setState({ currentTown: 'icekeep', market: data.market, currentCommodity: data.market[0] });
-        console.log(this.state.market);
-        console.log(this.state.market.length);
-        // return allPrices();
-      } else {
-        console.log('error');
+        this.setState({
+          currentTown: this.state.currentTown,
+          market: data.market,
+          currentCommodity: data.market[0]
+        });
       }
     });
   }
-  getInventory() { }
 
   render() {
     return (
       <div className="App container">
-        <header className="App-header">
-          <h1 className="App-title">Medieval Village</h1>
-        </header>
+        <Header title="Medieval Village" />
         <div className="row">
+
           {/* This container holds the user information  */}
-          <div className="col-sm-3 card">
-            Username: user
-            <br />
-            Money: {this.state.money.toFixed(2)}
-            <br />
-            Inventory:
-            <ul>
-              {this.state.inventory.map(inventoryItem =>
-                <li> {inventoryItem.material} qty: {inventoryItem.quantity} </li>
-              )}
-            </ul>
-          </div>
+          <Inventory inventory={this.state.inventory} money={this.state.money} />
+
           {/* This container is to buy goods */}
-          <div className="App-intro col-sm-6">
-            To get started, choose what material to buy
-            <Materials onChange={this.changeMaterial} />
-            <button onClick={this.buy}> Buy </button>
-            <button onClick={this.sell}> Sell </button>
-          </div>
+          <Main changeMaterial={this.changeMaterial} sell={this.sell} buy={this.buy} />
+
           {/* This container shows all items in a given location */}
-          <div className="col-sm-3 card">
-            <div>
-              <Towns onChange={this.changeMaterial} />
-              {/* <button onClick={this.getAll}> see all </button> */}
-              <button onClick={this.nextDay}> Next Day </button>{' '}
-              {this.state.market.map(item => (
-                <li>
-                  {item.material} {item.price.toFixed(2)}{' '}
-                </li>
-              ))}
-            </div>
-          </div>
+          <Market changeMaterial={this.changeMaterial} market={this.state.market} nextDay={this.nextDay} />
         </div>
       </div>
     );

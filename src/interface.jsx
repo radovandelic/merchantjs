@@ -1,41 +1,55 @@
 import React, { Component } from 'react';
+import { Button, Materials } from './components.jsx'
 
-export class Materials extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleChange = this.handleChange.bind(this);
+export class Header extends Component {
+  render() {
+    return (<header className="App-header">
+      <h1 className="App-title">{this.props.title}</h1>
+    </header>);
   }
+}
 
-  handleChange(e) {
-    const material = e.target.value;
-    this.props.onChange(material);
-  }
-
-  //   commodityCalc(e) {
-  //     const material = e.target.value;
-  //     model.getPrice(material);
-  //   }
-
+export class Main extends Component {
   render() {
     return (
-      <div>
-        <select id="materials" onChange={this.handleChange}>
-          <option value="wood">Wood</option>
-
-          <option value="stone">Stone</option>
-
-          <option value="steel">Steel</option>
-        </select>
+      <div className="App-intro col-sm-6">
+        To get started, choose what material to buy
+        <Materials onChange={this.props.changeMaterial} />
+        <Button clicked={this.props.buy} text="Buy" />
+        <Button clicked={this.props.sell} text="Sell" />
       </div>
     );
   }
 }
 
-export class Button extends Component {
+export class Market extends Component {
   render() {
-    return (
-      <button> Buy </button>
+    return (<div className="col-sm-3 card">
+      <div>
+        <Towns onChange={this.props.changeMaterial} />
+        <Button clicked={this.props.nextDay} text="Next Day" />
+        {this.props.market.map(item => (
+          <li>
+            {item.material} {item.price.toFixed(2)}{' '}
+          </li>
+        ))}
+      </div>
+    </div>
+    )
+  }
+}
+export class Inventory extends Component {
+  render() {
+    return (<div className="col-sm-3 card">
+      Money: {this.props.money.toFixed(2)}
+      <br />
+      Inventory:
+    <ul>
+        {this.props.inventory.map(inventoryItem =>
+          <li> {inventoryItem.material} qty: {inventoryItem.quantity} </li>
+        )}
+      </ul>
+    </div>
     );
   }
 }
@@ -66,43 +80,3 @@ export class Towns extends Component {
     );
   }
 }
-
-// export class Quantity extends Component {
-//   render() {
-//     return <input type="number" />;
-//   }
-// }
-
-// export class Iventory extends Component {}
-
-// export class AllItems extends Component {
-//   render() {
-//     return (
-//       <div class="row right-align">
-//         <li>
-//           material:&nbsp {this.props.market}
-//           material:&nbsp {this.props}
-//         </li>;
-//       </div>
-//     );
-//   }
-// }
-
-/*export class Handler extends Component {
-    constructor(props) {
-        super(props);
-        this.commodityCalc = this.commodityCalc.bind(this);
-    }
-    commodityCalc(props) {
-        let commodity = this.props.material;
-        console.log(commodity)
-        return console.log(model.getPrice(commodity))
-
-
-    }
-    render() {
-
-        return (<div> {this.commodityCalc} </div>)
-    }
-} 
-*/
