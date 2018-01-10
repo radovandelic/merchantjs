@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Towns, Inventory, Main, Market, Header } from './interface';
+import { Inventory, Main, Market, Header } from './interface';
 import './App.css';
 
 class App extends Component {
@@ -45,13 +45,14 @@ class App extends Component {
     var inventory = this.state.inventory;
     var index = inventory.findIndex(c => { return c.material === this.state.currentCommodity.material });
 
-    if (index == -1) { // if item not already in inventory
+    var price = null;
+    if (index === -1) { // if item not already in inventory
       var commodity = this.state.currentCommodity;
-      var price = commodity.price;
+      price = commodity.price;
       commodity.quantity = 1;
       inventory.push(commodity);
     } else { // if item already in inventory
-      var price = this.state.currentCommodity.price;
+      price = this.state.currentCommodity.price;
       inventory[index].quantity++;
     }
 
@@ -65,8 +66,8 @@ class App extends Component {
   }
   sell() {
     var inventory = this.state.inventory;
-    var index = inventory.findIndex(c => { return c.material == this.state.currentCommodity.material });
-    if (index != -1 && inventory[index].quantity > 0) {
+    var index = inventory.findIndex(c => { return c.material === this.state.currentCommodity.material });
+    if (index !== -1 && inventory[index].quantity > 0) {
       var price = this.state.currentCommodity.price
       var money = this.state.money + price;
       inventory[index].quantity--;
@@ -126,5 +127,16 @@ class App extends Component {
     );
   }
 }
+
+/*const mapStateToProps = state => {
+  return {
+      currentMaterial: state.currentMaterial
+  }
+}
+
+App = connect(
+  mapStateToProps,
+  null
+)(App)*/
 
 export default App;

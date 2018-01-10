@@ -3,7 +3,7 @@ var Router = require("express").Router();
 var User = require("../models/user")
 
 Router.get("/:user/inventory", (req, res) => {
-    Town.findOne({ name: req.params.user }, (err, user) => {
+    User.findOne({ name: req.params.user }, (err, user) => {
         res.json(user)
     })
 })

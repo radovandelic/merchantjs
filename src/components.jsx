@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { changeTown } from './actions';
+import { connect } from 'react-redux';
 
 export class Button extends Component {
     render() {
@@ -20,7 +22,8 @@ export class Materials extends Component {
         this.props.onChange(material);
     }
 
-    render() {
+    render = () => {
+        const { changeMaterial } = this.props;
         return (
             <div>
                 <select id="materials" onChange={this.handleChange}>
@@ -34,3 +37,20 @@ export class Materials extends Component {
         );
     }
 }
+
+/*
+// Map Redux actions to component props
+const mapDispatchToProps = dispatch => ({
+    changeMaterial(material) {
+        dispatch({
+            type: "CHANGE_MATERIAL",
+            material
+        })
+    }
+})
+
+// Connected Components
+Materials = connect(
+    null,
+    mapDispatchToProps
+)(Materials);*/
