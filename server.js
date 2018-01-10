@@ -16,10 +16,15 @@ var port = process.env.PORT || 3001;
 app.set('port', port);
 
 // set up a static server
-app.use("*", express.static("build"));
+app.use(express.static("build"));
 
 app.use("/user/", userRoutes);
 app.use("/", townRoutes);
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+});
+
 // set up error middleware
 app.use(function (req, res) {
     res.statusCode = 404;
