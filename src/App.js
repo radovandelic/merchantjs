@@ -79,8 +79,7 @@ class App extends Component {
   }
   ajaxGet(town, callback) {
     var url = window.location.hostname === "localhost" ?
-      `http://localhost:3001/${town}/prices` : `https://merchantjs.herokuapp.com/${town}/prices`;
-    console.log(window.location.hostname);
+      `http://localhost:3001/${town}/prices` : `https://${window.location.hostname}/${town}/prices`;
     fetch(url)
       .then(function (response) {
         return response.json();
