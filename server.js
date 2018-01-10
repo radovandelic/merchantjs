@@ -3,6 +3,7 @@ var app = express();
 var townRoutes = require("./components/routes/towns");
 var userRoutes = require("./components/routes/users");
 var compress = require('compression');
+var path = require("path");
 app.use(compress());
 
 //var interval = setin
