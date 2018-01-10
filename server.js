@@ -23,7 +23,7 @@ app.use("/user/", userRoutes);
 app.use("/", townRoutes);
 
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'src', 'build', 'index.html'));
 });
 
 // set up error middleware
